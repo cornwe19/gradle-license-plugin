@@ -16,12 +16,12 @@ import org.gradle.api.tasks.TaskAction
 class LicenseReportTask extends LicenseReportTaskKt {
   static final def POM_CONFIGURATION = "poms"
   static final def TEMP_POM_CONFIGURATION = "tempPoms"
-  private static final String ANDROID_SUPPORT_GROUP_ID = "com.android.support"
-  private static final String APACHE_LICENSE_NAME = "The Apache Software License"
-  private static final String APACHE_LICENSE_URL = "http://www.apache.org/licenses/LICENSE-2.0.txt"
-  private static final String OPEN_SOURCE_LICENSES = "open_source_licenses"
-  static final String HTML_EXT = ".html"
-  static final String JSON_EXT = ".json"
+//  private static final String ANDROID_SUPPORT_GROUP_ID = "com.android.support"
+//  private static final String APACHE_LICENSE_NAME = "The Apache Software License"
+//  private static final String APACHE_LICENSE_URL = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+//  private static final String OPEN_SOURCE_LICENSES = "open_source_licenses"
+//  static final String HTML_EXT = ".html"
+//  static final String JSON_EXT = ".json"
   @Internal final List<Project> projects = new ArrayList<>()
   @Optional @Input File[] assetDirs = []
   @Optional @Input boolean generateHtmlReport
@@ -44,7 +44,7 @@ class LicenseReportTask extends LicenseReportTaskKt {
 
         // If Android project and copy enabled, copy to asset directory
         if (variant && copyHtmlReportToAssets) {
-          copyHtmlReport()
+          copyHtmlReport(assetDirs, htmlFile)
         }
       }
 
@@ -286,7 +286,7 @@ class LicenseReportTask extends LicenseReportTaskKt {
     getLogger().log(LogLevel.LIFECYCLE, "Wrote JSON report to ${getClickableFileUrl(jsonFile)}.")
   }
 
-  private void copyHtmlReport() {
+  private void copyHtmlReport(File[] assetDirs, File htmlFile) {
    // Iterate through all asset directories
     assetDirs.each { directory ->
       File licenseFile = new File(directory.getPath(), OPEN_SOURCE_LICENSES + HTML_EXT)
